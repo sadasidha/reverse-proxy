@@ -1,5 +1,6 @@
 services:
   openresty:
+    image: openresty-local
     build: ./openresty
     ports:
       - "8080:80"
