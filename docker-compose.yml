@@ -1,0 +1,30 @@
+services:
+  openresty:
+    build: ./openresty
+    ports:
+      - "8080:80"
+    environment:
+      AUTH_HOST: http://auth-server
+      MAIN_PROCESS_HOST: http://main-process
+      BACKUP_SERVER_HOST: http://backup-server
+  auth-server:
+    build:
+      context: ./mock-services
+    command: node auth-server.js
+    ports:
+      - "3001:3000"
+
+  main-process:
+    build:
+      context: ./mock-services
+    command: node main-process.js
+    ports:
+      - "3002:3000"
+
+  data-backup-server:
+    build:
+      context: ./mock-services
+    command: node data-backup-server.js
+    ports:
+      - "3003:3000"
+
